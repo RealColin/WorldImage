@@ -1,21 +1,34 @@
 package realcolin.worldimage;
 
 
+import com.mojang.serialization.MapCodec;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.levelgen.DensityFunction;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import realcolin.worldimage.worldgen.densityfunction.ImageSampler;
+import realcolin.worldimage.worldgen.map.MapImage;
+import realcolin.worldimage.worldgen.terrain.Terrain;
 
 @Mod(Constants.MOD_ID)
 public class WorldImageNeoForge {
 
     public WorldImageNeoForge(IEventBus eventBus) {
+        DENSITY_FUNCTIONS.register("image_sampler", () -> ImageSampler.CODEC);
 
-        // This method is invoked by the NeoForge mod loader when it is ready
-        // to load your mod. You can access NeoForge and Common code in this
-        // project.
-
-        // Use NeoForge to bootstrap the Common mod.
-        Constants.LOG.info("Hello NeoForge world!");
+        DENSITY_FUNCTIONS.register(eventBus);
         WorldImageCommon.init();
 
+    }
+
+    private static final DeferredRegister<MapCodec<? extends DensityFunction>> DENSITY_FUNCTIONS = DeferredRegister.create(BuiltInRegistries.DENSITY_FUNCTION_TYPE.key(), Constants.MOD_ID);
+
+    @SubscribeEvent
+    public static void registerData(DataPackRegistryEvent.NewRegistry event) {
+        event.dataPackRegistry(WorldImageRegistries.TERRAIN, Terrain.DIRECT_CODEC, Terrain.DIRECT_CODEC);
+        event.dataPackRegistry(WorldImageRegistries.MAP, MapImage.DIRECT_CODEC, MapImage.DIRECT_CODEC);
     }
 }

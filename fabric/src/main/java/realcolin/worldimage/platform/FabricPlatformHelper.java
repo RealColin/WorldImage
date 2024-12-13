@@ -1,4 +1,4 @@
-package com.example.examplemod.platform;
+package realcolin.worldimage.platform;
 
 import realcolin.worldimage.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;

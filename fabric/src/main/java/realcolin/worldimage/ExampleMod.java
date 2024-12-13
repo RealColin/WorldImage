@@ -1,7 +1,6 @@
-package com.example.examplemod;
+package realcolin.worldimage;
 
 import net.fabricmc.api.ModInitializer;
-import realcolin.worldimage.Constants;
 
 public class ExampleMod implements ModInitializer {
     
@@ -14,6 +13,6 @@ public class ExampleMod implements ModInitializer {
 
         // Use Fabric to bootstrap the Common mod.
         Constants.LOG.info("Hello Fabric world!");
-        CommonClass.init();
+        WorldImageCommon.init();
     }
 }

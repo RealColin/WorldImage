@@ -72,6 +72,9 @@ dependencies {
 
     // Forge's hack fix
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+    implementation 'org.apache.xmlgraphics:batik-all:1.16'
+    implementation 'org.apache.xmlgraphics:batik-transcoder:1.16'
+    implementation 'org.apache.xmlgraphics:batik-codec:1.16'
 }
 
 publishing {

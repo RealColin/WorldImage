@@ -37,6 +37,9 @@ neoForge {
 }
 
 dependencies {
+
+    implementation 'org.apache.xmlgraphics:batik-all:1.16'
+    implementation 'org.apache.xmlgraphics:batik-bridge:1.16'
     implementation 'org.apache.xmlgraphics:batik-transcoder:1.16'
     implementation 'org.apache.xmlgraphics:batik-codec:1.16'
 }

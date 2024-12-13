@@ -1,0 +1,23 @@
+{
+  "image": "epicmod:map.svg",
+  "ppi": 96,
+  "default_biome": "epicmod:weird",
+  "default_terrain": "epicmod:weird",
+  "entries": [
+    {
+      "color": 16711680,
+      "biome": "epicmod:amazing",
+      "terrain": "epicmod:steppe"
+    },
+    {
+      "color": 32768,
+      "biome": "epicmod:green",
+      "terrain": "epicmod:steppe"
+    },
+    {
+      "color": 128,
+      "biome": "epicmod:rivr",
+      "terrain": "epicmod:river"
+    }
+  ]
+}
