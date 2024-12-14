@@ -1,0 +1,23 @@
+{
+  "image": "worldimage:map.svg",
+  "ppi": 96,
+  "default_biome": "minecraft:plains",
+  "default_terrain": "worldimage:weird",
+  "entries": [
+    {
+      "color": 16711680,
+      "biome": "minecraft:plains",
+      "terrain": "worldimage:steppe"
+    },
+    {
+      "color": 32768,
+      "biome": "minecraft:plains",
+      "terrain": "worldimage:steppe"
+    },
+    {
+      "color": 128,
+      "biome": "minecraft:river",
+      "terrain": "worldimage:river"
+    }
+  ]
+}

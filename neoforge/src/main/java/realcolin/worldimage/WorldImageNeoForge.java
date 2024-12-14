@@ -17,11 +17,10 @@ import realcolin.worldimage.worldgen.terrain.Terrain;
 public class WorldImageNeoForge {
 
     public WorldImageNeoForge(IEventBus eventBus) {
+        WorldImageCommon.init();
         DENSITY_FUNCTIONS.register("image_sampler", () -> ImageSampler.CODEC);
 
         DENSITY_FUNCTIONS.register(eventBus);
-        WorldImageCommon.init();
-
     }
 
     private static final DeferredRegister<MapCodec<? extends DensityFunction>> DENSITY_FUNCTIONS = DeferredRegister.create(BuiltInRegistries.DENSITY_FUNCTION_TYPE.key(), Constants.MOD_ID);

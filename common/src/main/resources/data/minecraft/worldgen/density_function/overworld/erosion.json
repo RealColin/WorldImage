@@ -1,5 +1,5 @@
 {
-  "type": "epicmod:image_sampler",
-  "map": "epicmod:epic",
+  "type": "worldimage:image_sampler",
+  "map": "worldimage:epic",
   "field": "erosion"
 }
