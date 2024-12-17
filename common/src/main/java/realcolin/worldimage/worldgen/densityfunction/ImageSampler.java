@@ -19,7 +19,7 @@ public record ImageSampler(Holder<MapImage> map, TerrainField field) implements 
     public double compute(FunctionContext functionContext) {
         Terrain terrain = map.value().getTerrain(functionContext.blockX(), functionContext.blockZ());
 
-        return field.read(terrain);
+        return field.read(terrain).compute(functionContext);
     }
 
     @Override

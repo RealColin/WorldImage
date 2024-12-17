@@ -1,6 +1,7 @@
 package realcolin.worldimage.worldgen.densityfunction;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.world.level.levelgen.DensityFunction;
 import realcolin.worldimage.worldgen.terrain.Terrain;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
@@ -8,32 +9,32 @@ import org.jetbrains.annotations.NotNull;
 public enum TerrainField implements StringRepresentable {
     CONTINENTS("continents") {
         @Override
-        public float read(Terrain terrain) {
+        public DensityFunction read(Terrain terrain) {
             return terrain.continents();
         }
     },
     EROSION("erosion") {
         @Override
-        public float read(Terrain terrain) {
+        public DensityFunction read(Terrain terrain) {
             return terrain.erosion();
         }
     },
     HEIGHT("height") {
         @Override
-        public float read(Terrain terrain) {
+        public DensityFunction read(Terrain terrain) {
             return terrain.height();
         }
     },
     RIDGES("ridges") {
         @Override
-        public float read(Terrain terrain) {
+        public DensityFunction read(Terrain terrain) {
             return terrain.ridges();
         }
     },
     TEMPERATURE("temperature") {
         @Override
-        public float read(Terrain terrain) {
-            return -0.3f;
+        public DensityFunction read(Terrain terrain) {
+            return terrain.temperature();
         }
     };
 
@@ -49,5 +50,5 @@ public enum TerrainField implements StringRepresentable {
         return this.name;
     }
 
-    public abstract float read(Terrain terrain);
+    public abstract DensityFunction read(Terrain terrain);
 }
