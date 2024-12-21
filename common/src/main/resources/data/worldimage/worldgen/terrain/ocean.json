@@ -1,7 +1,7 @@
 {
   "continents": {
-    "type": "minecraft:constant",
-    "argument": 0
+    "type": "minecraft:abs",
+    "argument": 5
   },
   "erosion": 0.4,
   "height": -0.60,

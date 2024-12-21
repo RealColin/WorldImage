@@ -1,5 +1,5 @@
 {
-  "type": "worldimage:image_sampler",
-  "map": "worldimage:epic",
-  "field": "height"
+  "type": "minecraft:add",
+  "argument1": "worldimage:height",
+  "argument2": 0
 }
