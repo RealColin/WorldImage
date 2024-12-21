@@ -15,9 +15,18 @@ public record ImageSampler(Holder<MapImage> map, TerrainField field) implements 
             TerrainField.CODEC.fieldOf("field").forGetter(ImageSampler::field)
     ).apply(instance, ImageSampler::new));
 
+    static boolean joe = true;
+
     @Override
     public double compute(FunctionContext functionContext) {
         Terrain terrain = map.value().getTerrain(functionContext.blockX(), functionContext.blockZ());
+
+        var a = field.read(terrain);
+        if (field == TerrainField.CONTINENTS && joe) {
+            System.out.println(a.compute(functionContext));
+            joe = false;
+        }
+
 
         return field.read(terrain).compute(functionContext);
     }

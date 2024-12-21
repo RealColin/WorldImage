@@ -1,8 +1,5 @@
 {
-  "continents": {
-    "type": "minecraft:constant",
-    "argument": 0
-  },
+  "continents": 1.0,
   "erosion": 0.0,
   "height": -0.5,
   "ridges": 0.2,
