@@ -16,6 +16,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.svg.SVGAElement;
 import org.w3c.dom.svg.SVGDocument;
 import realcolin.worldimage.worldgen.densityfunction.ImageSampler;
+import realcolin.worldimage.worldgen.densityfunction.RangeMap;
 import realcolin.worldimage.worldgen.map.MapImage;
 import realcolin.worldimage.worldgen.terrain.Terrain;
 
@@ -29,6 +30,7 @@ public class WorldImageNeoForge {
     public WorldImageNeoForge(IEventBus eventBus) {
         WorldImageCommon.init();
 
+        DENSITY_FUNCTIONS.register("range_map", () -> RangeMap.CODEC);
         DENSITY_FUNCTIONS.register("image_sampler", () -> ImageSampler.CODEC);
         DENSITY_FUNCTIONS.register(eventBus);
 
