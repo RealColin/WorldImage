@@ -1,10 +1,14 @@
 {
   "continents": {
     "type": "minecraft:constant",
-    "argument": 0
+    "argument": 0.0
   },
-  "erosion": 0.4,
-  "height": -0.60,
+  "erosion": {
+    "type": "minecraft:constant",
+    "argument": 0.4
+  },
   "ridges": 0.0,
-  "temperature": -0.3
+  "height": -0.60,
+  "temperature": -0.3,
+  "humidity": 0.0
 }

@@ -1,7 +1,8 @@
 {
   "continents": 1.0,
   "erosion": 0.0,
-  "height": -0.5,
   "ridges": 0.2,
-  "temperature": -0.3
+  "height": -0.5,
+  "temperature": -0.3,
+  "humidity": 0.0
 }
