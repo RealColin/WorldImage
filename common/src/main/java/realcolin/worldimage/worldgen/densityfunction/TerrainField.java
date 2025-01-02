@@ -36,6 +36,12 @@ public enum TerrainField implements StringRepresentable {
         public DensityFunction read(Terrain terrain) {
             return terrain.temperature();
         }
+    },
+    HUMIDITY("humidity") {
+        @Override
+        public DensityFunction read(Terrain terrain) {
+            return terrain.humidity();
+        }
     };
 
     public static final Codec<TerrainField> CODEC = StringRepresentable.fromEnum(TerrainField::values);
