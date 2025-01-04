@@ -2,7 +2,7 @@
   "continents": {
     "type": "worldimage:range_map",
     "func": {
-      "type": "minecraft:flat_cache",
+      "type": "minecraft:cache_2d",
       "argument": {
         "type": "minecraft:shifted_noise",
         "noise": "minecraft:continentalness",
@@ -21,7 +21,7 @@
   "erosion": {
     "type": "worldimage:range_map",
     "func": {
-      "type": "minecraft:flat_cache",
+      "type": "minecraft:cache_2d",
       "argument": {
         "type": "minecraft:shifted_noise",
         "noise": "minecraft:erosion",
@@ -38,7 +38,7 @@
     "upper_value": 1.0
   },
   "ridges": 0.2,
-  "height": -0.5,
+  "height": "worldimage:vanillaoffset",
   "temperature": -0.3,
   "humidity": 0.0
 }

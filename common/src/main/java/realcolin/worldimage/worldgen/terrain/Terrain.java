@@ -13,7 +13,7 @@ public record Terrain(DensityFunction continents, DensityFunction erosion, Densi
                     DensityFunction.DIRECT_CODEC.fieldOf("continents").forGetter(src -> src.continents),
                     DensityFunction.DIRECT_CODEC.fieldOf("erosion").forGetter(src -> src.erosion),
                     DensityFunction.DIRECT_CODEC.fieldOf("ridges").forGetter(src -> src.ridges),
-                    DensityFunction.DIRECT_CODEC.fieldOf("height").forGetter(src -> src.height),
+                    DensityFunction.HOLDER_HELPER_CODEC.fieldOf("height").forGetter(src -> src.height),
                     DensityFunction.DIRECT_CODEC.fieldOf("temperature").forGetter(src -> src.temperature),
                     DensityFunction.DIRECT_CODEC.fieldOf("humidity").forGetter(src -> src.humidity)
             ).apply(joe, Terrain::new));
