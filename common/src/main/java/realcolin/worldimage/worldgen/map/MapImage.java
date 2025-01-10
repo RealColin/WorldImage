@@ -20,6 +20,7 @@ import realcolin.worldimage.worldgen.terrain.Terrain;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -44,6 +45,8 @@ public class MapImage {
     private final GraphicsNode node;
     private final int width;
     private final int height;
+
+    private final List<Terrain> terrains;
 
     private ConcurrentHashMap<Pair<Integer, Integer>, BufferedImage> cache;
     private final int whatever = 16;
@@ -75,10 +78,22 @@ public class MapImage {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        terrains = new ArrayList<>();
+        terrains.add(defaultTerrain.value());
+        for (var entry : entries) {
+            var t = entry.terrain().value();
+            if (!terrains.contains(t))
+                terrains.add(entry.terrain().value());
+        }
     }
 
     public List<MapEntry> getEntries() {
         return entries;
+    }
+
+    public List<Terrain> getTerrains() {
+        return terrains;
     }
 
     public Holder<Biome> getBiome(int x, int z) {

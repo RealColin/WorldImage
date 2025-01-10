@@ -16,6 +16,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.svg.SVGAElement;
 import org.w3c.dom.svg.SVGDocument;
 import realcolin.worldimage.worldgen.densityfunction.ImageSampler;
+import realcolin.worldimage.worldgen.densityfunction.RangeMap;
 import realcolin.worldimage.worldgen.map.MapImage;
 import realcolin.worldimage.worldgen.terrain.Terrain;
 
@@ -29,10 +30,8 @@ public class WorldImageNeoForge {
     public WorldImageNeoForge(IEventBus eventBus) {
         WorldImageCommon.init();
 
-        //System.out.println(Class.forName("org.apache.batik.bridge.UserAgent"));
-
+        DENSITY_FUNCTIONS.register("range_map", () -> RangeMap.CODEC);
         DENSITY_FUNCTIONS.register("image_sampler", () -> ImageSampler.CODEC);
-
         DENSITY_FUNCTIONS.register(eventBus);
 
         eventBus.addListener(WorldImageNeoForge::registerData);
@@ -41,7 +40,7 @@ public class WorldImageNeoForge {
     private static final DeferredRegister<MapCodec<? extends DensityFunction>> DENSITY_FUNCTIONS = DeferredRegister.create(BuiltInRegistries.DENSITY_FUNCTION_TYPE.key(), Constants.MOD_ID);
 
     public static void registerData(DataPackRegistryEvent.NewRegistry event) {
-        event.dataPackRegistry(WorldImageRegistries.TERRAIN, Terrain.DIRECT_CODEC, Terrain.DIRECT_CODEC);
-        event.dataPackRegistry(WorldImageRegistries.MAP, MapImage.DIRECT_CODEC, MapImage.DIRECT_CODEC);
+        event.dataPackRegistry(WorldImageRegistries.TERRAIN, Terrain.DIRECT_CODEC);
+        event.dataPackRegistry(WorldImageRegistries.MAP, MapImage.DIRECT_CODEC);
     }
 }

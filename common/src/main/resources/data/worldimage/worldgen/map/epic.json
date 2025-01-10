@@ -2,7 +2,7 @@
   "image": "worldimage:map.svg",
   "ppi": 96,
   "default_biome": "minecraft:plains",
-  "default_terrain": "worldimage:weird",
+  "default_terrain": "worldimage:ocean",
   "entries": [
     {
       "color": 16711680,
