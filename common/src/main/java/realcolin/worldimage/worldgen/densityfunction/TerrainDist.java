@@ -35,20 +35,22 @@ public class TerrainDist implements DensityFunction.SimpleFunction {
     public double compute(@NotNull FunctionContext context) {
         var terrainToMatch = map.value().getTerrain(context.blockX(), context.blockZ());
         var queue = new LinkedList<Pair>();
-        queue.add(new Pair(context.blockX(), context.blockZ()));
+        var base = new Pair(context.blockX(), context.blockZ());
+        queue.add(base);
 
-        int dist = 0;
+        double dist = 0;
 
         var visited = new HashMap<Pair, Boolean>();
 
-        // dist variable isn't tracking distance it is tracking iterations - oops!
-        // TODO fix above comment pls
-        while (!queue.isEmpty() && dist < restrict) {
-
+        while (!queue.isEmpty()) {
             var cur = queue.poll();
             visited.put(cur, true);
+            dist = calcDist(cur, base);
 
-            // make sure these aren't visited or something lol
+            if (dist > restrict) {
+                continue;
+            }
+
             if (map.value().getTerrain(cur.x, cur.z) == terrainToMatch) {
                 if (!visited.containsKey(new Pair(cur.x - 1, cur.z)))
                     queue.add(new Pair(cur.x - 1, cur.z));
@@ -62,12 +64,14 @@ public class TerrainDist implements DensityFunction.SimpleFunction {
                 if (!visited.containsKey(new Pair(cur.x, cur.z - 1)))
                     queue.add(new Pair(cur.x, cur.z - 1));
             } else {
-                return dist;
+                return Math.clamp(dist, minValue(), maxValue());
             }
-
-            dist++;
         }
-        return dist;
+        return Math.clamp(dist, minValue(), maxValue());
+    }
+
+    private double calcDist(Pair one, Pair two) {
+        return Math.sqrt(Math.pow(two.x - one.x, 2) + Math.pow(two.z - one.z, 2));
     }
 
     @Override

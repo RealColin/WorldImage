@@ -42,10 +42,10 @@
     "func": {
       "type": "worldimage:terrain_dist",
       "map": "worldimage:epic",
-      "restrict": 12
+      "restrict": 4
     },
     "lower_noise": 0.0,
-    "upper_noise": 12.0,
+    "upper_noise": 4.0,
     "lower_value": 0.05,
     "upper_value": 0.0
   },
