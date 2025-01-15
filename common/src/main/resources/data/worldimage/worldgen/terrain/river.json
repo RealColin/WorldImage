@@ -38,19 +38,16 @@
     "upper_value": 1.0
   },
   "ridges": {
-    "type": "minecraft:cache_2d",
-    "argument": {
-      "type": "worldimage:range_map",
-      "func": {
-        "type": "worldimage:terrain_dist",
-        "map": "worldimage:epic",
-        "restrict": 10
-      },
-      "lower_noise": 0.0,
-      "upper_noise": 10.0,
-      "lower_value": 0.05,
-      "upper_value": 0.0
-    }
+    "type": "worldimage:range_map",
+    "func": {
+      "type": "worldimage:terrain_dist",
+      "map": "worldimage:epic",
+      "restrict": 10
+    },
+    "lower_noise": 0.0,
+    "upper_noise": 10.0,
+    "lower_value": 0.05,
+    "upper_value": 0.0
   },
   "height": "worldimage:vanillaoffset",
   "temperature": 0.0,

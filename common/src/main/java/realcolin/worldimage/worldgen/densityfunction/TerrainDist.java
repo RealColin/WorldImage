@@ -23,6 +23,7 @@ public class TerrainDist implements DensityFunction.SimpleFunction {
 
     private final Holder<MapImage> map;
     private final int restrict;
+    private HashMap<Pair, Double> cache = new HashMap<>();
 
     public TerrainDist(Holder<MapImage> map, int restrict) {
         this.map = map;
@@ -34,8 +35,13 @@ public class TerrainDist implements DensityFunction.SimpleFunction {
     @Override
     public double compute(@NotNull FunctionContext context) {
         var terrainToMatch = map.value().getTerrain(context.blockX(), context.blockZ());
-        var queue = new LinkedList<Pair>();
         var base = new Pair(context.blockX(), context.blockZ());
+
+        if (cache.containsKey(base)) {
+            return cache.get(base);
+        }
+
+        var queue = new LinkedList<Pair>();
         queue.add(base);
 
         double dist = 0;
@@ -64,9 +70,11 @@ public class TerrainDist implements DensityFunction.SimpleFunction {
                 if (!visited.containsKey(new Pair(cur.x, cur.z - 1)))
                     queue.add(new Pair(cur.x, cur.z - 1));
             } else {
+                cache.put(base, Math.clamp(dist, minValue(), maxValue()));
                 return Math.clamp(dist, minValue(), maxValue());
             }
         }
+        cache.put(base, Math.clamp(dist, minValue(), maxValue()));
         return Math.clamp(dist, minValue(), maxValue());
     }
 
