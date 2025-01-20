@@ -49,7 +49,14 @@
     "lower_value": 0.05,
     "upper_value": 0.0
   },
-  "height": "worldimage:vanillaoffset",
+  "height": {
+    "type": "worldimage:range_map",
+    "func": "minecraft:overworld/ridges",
+    "lower_noise": 0.0,
+    "upper_noise": 0.05,
+    "lower_value": -0.62,
+    "upper_value": -0.54
+  },
   "temperature": 0.0,
   "humidity": 0.0
 }

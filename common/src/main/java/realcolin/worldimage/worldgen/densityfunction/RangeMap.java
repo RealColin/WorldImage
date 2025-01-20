@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class RangeMap implements DensityFunction.SimpleFunction {
     public static final MapCodec<RangeMap> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            DensityFunction.DIRECT_CODEC.fieldOf("func").forGetter(src -> src.func),
+            DensityFunction.HOLDER_HELPER_CODEC.fieldOf("func").forGetter(src -> src.func),
             Codec.FLOAT.fieldOf("lower_noise").forGetter(src -> src.a1),
             Codec.FLOAT.fieldOf("upper_noise").forGetter(src -> src.a2),
             Codec.FLOAT.fieldOf("lower_value").forGetter(src -> src.b1),
