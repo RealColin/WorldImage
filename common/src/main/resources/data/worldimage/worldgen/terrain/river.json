@@ -54,9 +54,10 @@
     "func": "minecraft:overworld/ridges",
     "lower_noise": 0.0,
     "upper_noise": 0.05,
-    "lower_value": -0.62,
-    "upper_value": -0.54
+    "lower_value": -0.60,
+    "upper_value": -0.51
   },
   "temperature": 0.0,
-  "humidity": 0.0
+  "humidity": 0.0,
+  "base": 0.0
 }

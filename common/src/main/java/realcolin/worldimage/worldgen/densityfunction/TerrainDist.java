@@ -5,7 +5,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.util.KeyDispatchDataCodec;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import org.jetbrains.annotations.NotNull;
 import realcolin.worldimage.util.Pair;
@@ -13,7 +12,6 @@ import realcolin.worldimage.worldgen.map.MapImage;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 public class TerrainDist implements DensityFunction.SimpleFunction {
     public static final MapCodec<TerrainDist> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -23,7 +21,7 @@ public class TerrainDist implements DensityFunction.SimpleFunction {
 
     private final Holder<MapImage> map;
     private final int restrict;
-    private HashMap<Pair, Double> cache = new HashMap<>();
+    private final HashMap<Pair, Double> cache = new HashMap<>();
 
     public TerrainDist(Holder<MapImage> map, int restrict) {
         this.map = map;
