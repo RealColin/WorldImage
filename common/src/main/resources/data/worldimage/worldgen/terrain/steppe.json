@@ -40,5 +40,6 @@
   "ridges": 0.2,
   "height": "worldimage:vanillaoffset",
   "temperature": -0.3,
-  "humidity": 0.0
+  "humidity": 0.0,
+  "base": "worldimage:vanillabase"
 }

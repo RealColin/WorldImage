@@ -37,8 +37,27 @@
     "lower_value": -1.0,
     "upper_value": 1.0
   },
-  "ridges": 0.0,
-  "height": "worldimage:vanillaoffset",
+  "ridges": {
+    "type": "worldimage:range_map",
+    "func": {
+      "type": "worldimage:terrain_dist",
+      "map": "worldimage:epic",
+      "restrict": 10
+    },
+    "lower_noise": 0.0,
+    "upper_noise": 10.0,
+    "lower_value": 0.05,
+    "upper_value": 0.0
+  },
+  "height": {
+    "type": "worldimage:range_map",
+    "func": "minecraft:overworld/ridges",
+    "lower_noise": 0.0,
+    "upper_noise": 0.05,
+    "lower_value": -0.60,
+    "upper_value": -0.51
+  },
   "temperature": 0.0,
-  "humidity": 0.0
+  "humidity": 0.0,
+  "base": 0.0
 }
