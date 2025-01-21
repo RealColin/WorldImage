@@ -36,7 +36,10 @@ public class TerrainDist implements DensityFunction.SimpleFunction {
         var base = new Pair(context.blockX(), context.blockZ());
 
         if (cache.containsKey(base)) {
-            return cache.get(base);
+            var a = cache.get(base);
+            if (a != null) {
+                return a;
+            }
         }
 
         var queue = new LinkedList<Pair>();

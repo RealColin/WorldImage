@@ -48,8 +48,7 @@ public class MapImage {
 
     private final List<Terrain> terrains;
 
-    private ConcurrentHashMap<Pair<Integer, Integer>, BufferedImage> cache;
-    private final int whatever = 16;
+    private final ConcurrentHashMap<Pair<Integer, Integer>, BufferedImage> cache;
 
     public MapImage(ResourceLocation res, int ppi, Holder<Biome> defaultBiome, Holder<Terrain> defaultTerrain, List<MapEntry> entries) {
         this.res = res;
@@ -97,14 +96,12 @@ public class MapImage {
     }
 
     public Holder<Biome> getBiome(int x, int z) {
-        int scale = 4; // TODO make this not hardcoded
-
-
-        int color = this.getColorAtPixel((x) / scale, (z) / scale);
+        int color = this.getColorAtPixel(x, z);
 
         if (color != -1) {
-            for (MapEntry entry : entries) {
-                if (entry.color() == color)
+            for (var entry : entries) {
+                var c = new Color(entry.color());
+                if (c.getRGB() == color)
                     return entry.biome();
             }
         }
@@ -114,12 +111,11 @@ public class MapImage {
     public Terrain getTerrain(int block_x, int block_z) {
         int color = getColorAtPixel(block_x, block_z);
 
-
         if (color != -1) {
-            for (var a : entries) {
-                var c = new Color(a.color());
+            for (var entry : entries) {
+                var c = new Color(entry.color());
                 if (c.getRGB() == color)
-                    return a.terrain().value();
+                    return entry.terrain().value();
             }
         }
 
@@ -131,6 +127,7 @@ public class MapImage {
         if (outsideRange(x, y))
             return -1;
 
+        int whatever = 16;
         var fort = new Pair<>(x / whatever, y / whatever);
         BufferedImage img;
 

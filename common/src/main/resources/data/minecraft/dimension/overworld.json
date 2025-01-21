@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:overworld",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "worldimage:world_image_source",
+      "map": "worldimage:epic"
+    },
+    "settings": "minecraft:overworld"
+  }
+}
