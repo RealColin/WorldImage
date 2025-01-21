@@ -1,7 +1,7 @@
 {
   "image": "worldimage:map.svg",
   "ppi": 96,
-  "default_biome": "minecraft:plains",
+  "default_biome": "minecraft:ocean",
   "default_terrain": "worldimage:ocean",
   "entries": [
     {
