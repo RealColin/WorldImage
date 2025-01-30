@@ -3,6 +3,8 @@ plugins {
     id 'net.neoforged.moddev'
 }
 
+jarJar.setEnabled(true)
+
 neoForge {
     version = neoforge_version
     // Automatically enable neoforge AccessTransformers if the file exists
@@ -37,10 +39,17 @@ neoForge {
 }
 
 dependencies {
-    implementation 'org.apache.xmlgraphics:batik-transcoder:1.16'
-    implementation 'org.apache.xmlgraphics:batik-codec:1.16'
+    jarJar(implementation('org.apache.xmlgraphics:batik-transcoder:1.16'))
+    jarJar(implementation('org.apache.xmlgraphics:batik-codec:1.16'))
+    jarJar(implementation('org.apache.xmlgraphics:batik-bridge:1.16'))
+    jarJar(implementation('org.apache.xmlgraphics:batik-util:1.16'))
+
+
     additionalRuntimeClasspath 'org.apache.xmlgraphics:batik-transcoder:1.16'
     additionalRuntimeClasspath 'org.apache.xmlgraphics:batik-codec:1.16'
+    additionalRuntimeClasspath 'org.apache.xmlgraphics:batik-bridge:1.16'
+    additionalRuntimeClasspath 'org.apache.xmlgraphics:batik-util:1.16'
+
 }
 
 configurations.all {
