@@ -28,6 +28,7 @@ public class TerrainDist implements DensityFunction.SimpleFunction {
         this.restrict = restrict;
     }
 
+    int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     // breadth first search
     @Override
@@ -48,31 +49,30 @@ public class TerrainDist implements DensityFunction.SimpleFunction {
         double dist = 0;
 
         var visited = new HashMap<Pair, Boolean>();
+        visited.put(base, true);
 
         while (!queue.isEmpty()) {
             var cur = queue.poll();
-            visited.put(cur, true);
             dist = calcDist(cur, base);
 
             if (dist > restrict) {
-                continue;
+                dist = restrict;
+                break;
             }
 
             if (map.value().getTerrain(cur.x, cur.z) == terrainToMatch) {
-                if (!visited.containsKey(new Pair(cur.x - 1, cur.z)))
-                    queue.add(new Pair(cur.x - 1, cur.z));
+                for (var dir : directions) {
+                    var pair = new Pair(cur.x + dir[0], cur.z + dir[1]);
 
-                if (!visited.containsKey(new Pair(cur.x + 1, cur.z)))
-                    queue.add(new Pair(cur.x + 1, cur.z));
-
-                if (!visited.containsKey(new Pair(cur.x, cur.z + 1)))
-                    queue.add(new Pair(cur.x, cur.z + 1));
-
-                if (!visited.containsKey(new Pair(cur.x, cur.z - 1)))
-                    queue.add(new Pair(cur.x, cur.z - 1));
+                    if (!visited.containsKey(pair)) {
+                        queue.add(pair);
+                        visited.put(pair, true);
+                    }
+                }
             } else {
-                cache.put(base, Math.clamp(dist, minValue(), maxValue()));
-                return Math.clamp(dist, minValue(), maxValue());
+                var val = Math.clamp(dist, minValue(), maxValue());
+                cache.put(base, val);
+                return val;
             }
         }
         cache.put(base, Math.clamp(dist, minValue(), maxValue()));
