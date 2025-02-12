@@ -33,6 +33,8 @@ public class TerrainDist implements DensityFunction.SimpleFunction {
     // breadth first search
     @Override
     public double compute(@NotNull FunctionContext context) {
+        long start = System.nanoTime();
+
         var terrainToMatch = map.value().getTerrain(context.blockX(), context.blockZ());
         var base = new Pair(context.blockX(), context.blockZ());
 
@@ -70,11 +72,14 @@ public class TerrainDist implements DensityFunction.SimpleFunction {
                     }
                 }
             } else {
-                var val = Math.clamp(dist, minValue(), maxValue());
-                cache.put(base, val);
-                return val;
+                dist = Math.clamp(dist, minValue(), maxValue());
+                break;
             }
         }
+
+        long duration = System.nanoTime() - start;
+        System.out.println("ImageSampler: " +duration);
+
         cache.put(base, Math.clamp(dist, minValue(), maxValue()));
         return Math.clamp(dist, minValue(), maxValue());
     }
