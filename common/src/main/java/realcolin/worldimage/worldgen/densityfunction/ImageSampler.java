@@ -6,6 +6,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.levelgen.DensityFunctions;
 import realcolin.worldimage.WorldImageRegistries;
+import realcolin.worldimage.util.Pair;
 import realcolin.worldimage.worldgen.map.MapImage;
 import realcolin.worldimage.worldgen.terrain.Terrain;
 import net.minecraft.core.Holder;
@@ -26,6 +27,8 @@ public class ImageSampler implements DensityFunction.SimpleFunction {
     private final TerrainField field;
     private final HashMap<Terrain, DensityFunction> functions;
 
+    private final HashMap<Pair, Double> cache = new HashMap<>();
+
     public ImageSampler(Holder<MapImage> map, TerrainField field) {
         this(map, field, null);
     }
@@ -38,13 +41,23 @@ public class ImageSampler implements DensityFunction.SimpleFunction {
 
     @Override
     public double compute(FunctionContext functionContext) {
+        var pair = new Pair(functionContext.blockX(), functionContext.blockZ());
+        if (cache.containsKey(pair)) {
+            return cache.get(pair);
+        }
+
         Terrain terrain = map.value().getTerrain(functionContext.blockX(), functionContext.blockZ());
 
         if (functions.containsKey(terrain)) {
+            var val = functions.get(terrain).compute(functionContext);
+            cache.put(pair, val);
             return functions.get(terrain).compute(functionContext);
         }
 
-        return field.read(terrain).compute(functionContext);
+        var val = field.read(terrain).compute(functionContext);
+        cache.put(pair, val);
+
+        return val;
     }
 
     @Override

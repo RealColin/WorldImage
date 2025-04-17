@@ -127,7 +127,7 @@ public class MapImage {
         if (outsideRange(x, y))
             return -1;
 
-        int whatever = 16;
+        int whatever = 512;
         var fort = new Pair<>(x / whatever, y / whatever);
         BufferedImage img;
 
