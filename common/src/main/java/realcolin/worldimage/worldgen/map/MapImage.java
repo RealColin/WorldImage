@@ -18,7 +18,6 @@ import realcolin.worldimage.WorldImageRegistries;
 import realcolin.worldimage.worldgen.terrain.Terrain;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -50,9 +49,6 @@ public class MapImage {
     private final List<Terrain> terrains;
 
     private final ConcurrentHashMap<Pair<Integer, Integer>, BufferedImage> cache;
-
-    /* I know I NEED the stuff below */
-    private List<ShapeRegion> shapeRegions;
 
     public MapImage(ResourceLocation res, int ppi, Holder<Biome> defaultBiome, Holder<Terrain> defaultTerrain, List<MapEntry> entries) {
         this.res = res;
@@ -113,20 +109,6 @@ public class MapImage {
     }
 
     public Terrain getTerrain(int block_x, int block_z) {
-        var point = convertToSVGCoordinates(block_x, block_z);
-        ShapeRegion region = new ShapeRegion(null, defaultBiome.value(), defaultTerrain.value(), -1);
-
-        for (var sr : shapeRegions) {
-            if (sr.within(point) && sr.order() > region.order()) {
-                region = sr;
-            }
-        }
-
-        var ter = region.terrain();
-        // return ter
-
-        // TODO finish above, get rid of below
-
         int color = getColorAtPixel(block_x, block_z);
 
         if (color != -1) {
@@ -138,12 +120,6 @@ public class MapImage {
         }
 
         return this.defaultTerrain.value();
-    }
-
-    private Point convertToSVGCoordinates(int blockX, int blockZ) {
-        // TODO math to convert them
-
-        return new Point(blockX, blockZ);
     }
 
 
