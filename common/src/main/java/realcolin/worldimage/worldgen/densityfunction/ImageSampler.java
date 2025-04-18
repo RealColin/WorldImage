@@ -25,6 +25,7 @@ public class ImageSampler implements DensityFunction.SimpleFunction {
 
     private final Holder<MapImage> map;
     private final TerrainField field;
+    // density functions belonging to the input field for all terrains
     private final HashMap<Terrain, DensityFunction> functions;
 
     private final HashMap<Pair, Double> cache = new HashMap<>();
