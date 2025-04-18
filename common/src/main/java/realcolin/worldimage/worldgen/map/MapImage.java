@@ -37,8 +37,6 @@ public class MapImage {
 
     public static final Codec<Holder<MapImage>> CODEC = RegistryFileCodec.create(WorldImageRegistries.MAP, DIRECT_CODEC);
 
-
-    private static final int svgPPI = 96;
     private final int ppi;
     private final ResourceLocation res;
     private final Holder<Biome> defaultBiome;
@@ -73,9 +71,9 @@ public class MapImage {
             BridgeContext ctx = new BridgeContext(new UserAgentAdapter());
             node = builder.build(ctx, svgDocument);
 
-            this.width = Math.round((svgDocument.getRootElement().getWidth().getBaseVal().getValue() / svgPPI) * ppi);
-            System.out.println(svgDocument.getRootElement().getWidth().getBaseVal().getValue());
-            this.height = Math.round((svgDocument.getRootElement().getHeight().getBaseVal().getValue() / svgPPI) * ppi);
+            this.width = Math.round((svgDocument.getRootElement().getWidth().getBaseVal().getValue() / 96) * ppi);
+            this.height = Math.round((svgDocument.getRootElement().getHeight().getBaseVal().getValue() / 96) * ppi);
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -136,7 +134,6 @@ public class MapImage {
         if (cache.containsKey(fort))
             img = cache.get(fort);
         else {
-            System.out.println("making new image: " + x + ", " + y);
             img = new BufferedImage(whatever, whatever, BufferedImage.TYPE_INT_RGB);
             Graphics2D g2d = img.createGraphics();
 
@@ -145,13 +142,8 @@ public class MapImage {
             int svgX = fort.getFirst() * whatever;
             int svgY = fort.getSecond() * whatever;
             g2d.translate(-svgX, -svgY);
-            g2d.scale((double) ppi / (double)svgPPI, (double)ppi / (double)svgPPI);
+            g2d.scale((double) ppi / 96.0, (double)ppi / 96.0);
             this.node.paint(g2d);
-
-            // NOTE: This should eventually be changed to use an LRU cache
-            if (cache.size() > 1000) {
-                cache.clear();
-            }
 
             cache.put(fort, img);
         }
