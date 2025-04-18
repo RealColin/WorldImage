@@ -1,13 +1,18 @@
 {
-  "image": "worldimage:map.svg",
+  "image": "worldimage:map2.svg",
   "ppi": 96,
   "default_biome": "minecraft:ocean",
   "default_terrain": "worldimage:ocean",
   "entries": [
     {
-      "color": 16711680,
-      "biome": "minecraft:plains",
+      "color": 2249984,
+      "biome": "minecraft:forest",
       "terrain": "worldimage:steppe"
+    },
+    {
+      "color": 6710886,
+      "biome": "minecraft:stony_peaks",
+      "terrain": "worldimage:mountain"
     },
     {
       "color": 32768,
@@ -16,6 +21,11 @@
     },
     {
       "color": 128,
+      "biome": "minecraft:ocean",
+      "terrain": "worldimage:ocean"
+    },
+    {
+      "color": 255,
       "biome": "minecraft:river",
       "terrain": "worldimage:river"
     }
