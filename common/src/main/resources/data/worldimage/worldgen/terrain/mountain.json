@@ -38,7 +38,26 @@
     "upper_value": 1.0
   },
   "ridges": 0.2,
-  "height": "worldimage:vanillaoffset",
+  "height": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "worldimage:range_map",
+      "func": {
+        "type": "worldimage:terrain_dist",
+        "map": "worldimage:epic",
+        "restrict": 3
+      },
+      "lower_noise": 0.0,
+      "upper_noise": 3.0,
+      "lower_value": 0.0,
+      "upper_value": 0.2
+    },
+    "argument2": {
+      "type": "minecraft:add",
+      "argument1": "worldimage:vanillaoffset",
+      "argument2": "worldimage:whatever"
+    }
+  },
   "temperature": -0.3,
   "humidity": 0.0,
   "base": "worldimage:vanillabase"
