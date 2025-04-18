@@ -15,8 +15,8 @@
     },
     "lower_noise": -1.2,
     "upper_noise": 1.0,
-    "lower_value": -1.05,
-    "upper_value": -0.19
+    "lower_value": -0.19,
+    "upper_value": 1.0
   },
   "erosion": {
     "type": "worldimage:range_map",
@@ -37,8 +37,8 @@
     "lower_value": -1.0,
     "upper_value": 1.0
   },
-  "ridges": 0.0,
-  "height": -0.80,
+  "ridges": 0.2,
+  "height": "worldimage:vanillaoffset",
   "temperature": -0.3,
   "humidity": 0.0,
   "base": "worldimage:vanillabase"
