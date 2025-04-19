@@ -12,7 +12,7 @@
     {
       "color": 6710886,
       "biome": "minecraft:stony_peaks",
-      "terrain": "worldimage:mountain"
+      "terrain": "worldimage:debug_mountain"
     },
     {
       "color": 32768,

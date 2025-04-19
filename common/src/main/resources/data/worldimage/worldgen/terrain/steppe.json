@@ -41,5 +41,5 @@
   "height": "worldimage:vanillaoffset",
   "temperature": -0.3,
   "humidity": 0.0,
-  "base": "worldimage:vanillabase"
+  "base": 0.0
 }
