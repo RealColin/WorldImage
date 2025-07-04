@@ -5,29 +5,59 @@
   "default_terrain": "worldimage:ocean",
   "entries": [
     {
-      "color": 2249984,
-      "biome": "minecraft:forest",
-      "terrain": "worldimage:steppe"
-    },
-    {
-      "color": 6710886,
-      "biome": "minecraft:stony_peaks",
-      "terrain": "worldimage:mountain"
-    },
-    {
-      "color": 32768,
+      "id": "rect1",
       "biome": "minecraft:plains",
       "terrain": "worldimage:steppe"
     },
     {
-      "color": 128,
-      "biome": "minecraft:ocean",
-      "terrain": "worldimage:ocean"
+      "id": "path20",
+      "biome": "minecraft:plains",
+      "terrain": "worldimage:steppe"
     },
     {
-      "color": 255,
+      "id": "path27",
+      "biome": "minecraft:stony_peaks",
+      "terrain": "worldimage:mountain"
+    },
+    {
+      "id": "path28",
+      "biome": "minecraft:stony_peaks",
+      "terrain": "worldimage:mountain"
+    },
+    {
+      "id": "path29",
+      "biome": "minecraft:stony_peaks",
+      "terrain": "worldimage:mountain"
+    },
+    {
+      "id": "path30",
       "biome": "minecraft:river",
       "terrain": "worldimage:river"
+    },
+    {
+      "id": "path31",
+      "biome": "minecraft:river",
+      "terrain": "worldimage:river"
+    },
+    {
+      "id": "path32",
+      "biome": "minecraft:river",
+      "terrain": "worldimage:river"
+    },
+    {
+      "id": "path33",
+      "biome": "minecraft:river",
+      "terrain": "worldimage:river"
+    },
+    {
+      "id": "path34",
+      "biome": "minecraft:forest",
+      "terrain": "worldimage:steppe"
+    },
+    {
+      "id": "path35",
+      "biome": "minecraft:forest",
+      "terrain": "worldimage:steppe"
     }
   ]
 }

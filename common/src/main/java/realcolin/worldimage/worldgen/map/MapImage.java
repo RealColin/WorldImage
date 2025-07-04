@@ -11,13 +11,16 @@ import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.bridge.BridgeContext;
 import org.apache.batik.bridge.GVTBuilder;
 import org.apache.batik.bridge.UserAgentAdapter;
+import org.apache.batik.gvt.CompositeGraphicsNode;
 import org.apache.batik.gvt.GraphicsNode;
 import org.apache.batik.util.XMLResourceDescriptor;
+import org.w3c.dom.Element;
 import org.w3c.dom.svg.SVGDocument;
 import realcolin.worldimage.WorldImageRegistries;
 import realcolin.worldimage.worldgen.terrain.Terrain;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -43,6 +46,7 @@ public class MapImage {
     private final Holder<Terrain> defaultTerrain;
     private final List<MapEntry> entries;
     private final GraphicsNode node;
+    private final BridgeContext ctx;
     private final int width;
     private final int height;
 
@@ -68,11 +72,11 @@ public class MapImage {
             SVGDocument svgDocument = factory.createSVGDocument(null, svgFile);
 
             GVTBuilder builder = new GVTBuilder();
-            BridgeContext ctx = new BridgeContext(new UserAgentAdapter());
+            ctx = new BridgeContext(new UserAgentAdapter());
             node = builder.build(ctx, svgDocument);
 
-            this.width = Math.round((svgDocument.getRootElement().getWidth().getBaseVal().getValue() / 96) * ppi);
-            this.height = Math.round((svgDocument.getRootElement().getHeight().getBaseVal().getValue() / 96) * ppi);
+            this.width = Math.round((svgDocument.getRootElement().getWidth().getBaseVal().getValue() / 96) * ppi); // block coords
+            this.height = Math.round((svgDocument.getRootElement().getHeight().getBaseVal().getValue() / 96) * ppi); // block coords
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -96,31 +100,87 @@ public class MapImage {
     }
 
     public Holder<Biome> getBiome(int x, int z) {
-        int color = this.getColorAtPixel(x, z);
+        if (outsideRange(x, z))
+            return this.defaultBiome;
 
-        if (color != -1) {
+       // TODO read thread to finish fixing
+
+        var point = new Point2D.Double((double) x / ppi, (double) z / ppi);
+        var el = getShapeAt(node, point, ctx);
+
+        if (el != null) {
+            String id = el.getAttribute("id");
+
             for (var entry : entries) {
-                var c = new Color(entry.color());
-                if (c.getRGB() == color)
+                if (entry.ID().equals(id))
                     return entry.biome();
             }
+
         }
+
         return this.defaultBiome;
     }
 
-    public Terrain getTerrain(int block_x, int block_z) {
-        int color = getColorAtPixel(block_x, block_z);
+    public Terrain getTerrain(int x, int z) {
+        if (outsideRange(x, z))
+            return this.defaultTerrain.value();
 
-        if (color != -1) {
+        var point = new Point2D.Double((double) x / ppi, (double) z / ppi);
+        var el = getShapeAt(node, point, ctx);
+
+        if (el != null) {
+            String id = el.getAttribute("id");
+
             for (var entry : entries) {
-                var c = new Color(entry.color());
-                if (c.getRGB() == color)
+                if (entry.ID().equals(id))
                     return entry.terrain().value();
             }
+
         }
 
         return this.defaultTerrain.value();
     }
+
+    private Element getShapeAt(GraphicsNode node, Point2D point, BridgeContext ctx) {
+//        System.out.println(point);
+        if (node instanceof CompositeGraphicsNode comNode) {
+            var children = comNode.getChildren();
+            for (int i = children.size() - 1; i >= 0; i--) {
+                var child = (GraphicsNode) children.get(i);
+
+                Element res = getShapeAt(child, point, ctx);
+                if (res != null) {
+//                    System.out.println("c");
+                    return res;
+                }
+
+                if (child.contains(point)) {
+                    Element e = ctx.getElement(child);
+                    if (e != null) return e;
+                }
+            }
+        } else {
+            if (node.contains(point)) {
+                return ctx.getElement(node);
+            }
+        }
+
+        return null;
+    }
+
+//    private String getPathIDatPos(int x, int y) {
+//        // translate input pixel coordinate to SVG coordinate
+//        double svgX = (double) x / ppi;
+//        double svgY = (double) y / ppi;
+//        var pt = new Point2D.Double(svgX, svgY);
+//
+//        for (var obj : node.getRoot().getChildren()) {
+//            var child = (GraphicsNode) obj;
+//            if (child.contains(pt)) {
+//
+//            }
+//        }
+//    }
 
 
     private int getColorAtPixel(int x, int y) {
