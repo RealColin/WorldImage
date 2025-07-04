@@ -49,8 +49,8 @@
       },
       "lower_noise": 0.0,
       "upper_noise": 5.0,
-      "lower_value": -0.3,
-      "upper_value": 0.0
+      "lower_value": -0.5,
+      "upper_value": -0.1
     },
     "argument2": {
       "type": "minecraft:add",
