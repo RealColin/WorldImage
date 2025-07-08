@@ -9,10 +9,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.bridge.BridgeContext;
+import org.apache.batik.bridge.DocumentLoader;
 import org.apache.batik.bridge.GVTBuilder;
 import org.apache.batik.bridge.UserAgentAdapter;
+import org.apache.batik.gvt.CanvasGraphicsNode;
 import org.apache.batik.gvt.CompositeGraphicsNode;
 import org.apache.batik.gvt.GraphicsNode;
+import org.apache.batik.gvt.ShapeNode;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.w3c.dom.Element;
 import org.w3c.dom.svg.SVGDocument;
@@ -72,8 +75,12 @@ public class MapImage {
             SVGDocument svgDocument = factory.createSVGDocument(null, svgFile);
 
             GVTBuilder builder = new GVTBuilder();
-            ctx = new BridgeContext(new UserAgentAdapter());
+            UserAgentAdapter adapter = new UserAgentAdapter();
+            ctx = new BridgeContext(adapter, new DocumentLoader(adapter));
+            ctx.setDynamicState(BridgeContext.DYNAMIC);
             node = builder.build(ctx, svgDocument);
+
+            printNode(node);
 
             this.width = Math.round((svgDocument.getRootElement().getWidth().getBaseVal().getValue() / 96) * ppi); // block coords
             this.height = Math.round((svgDocument.getRootElement().getHeight().getBaseVal().getValue() / 96) * ppi); // block coords
@@ -88,6 +95,24 @@ public class MapImage {
             var t = entry.terrain().value();
             if (!terrains.contains(t))
                 terrains.add(entry.terrain().value());
+        }
+    }
+
+    private void printNode(GraphicsNode node) {
+//        System.out.println(node);
+
+        if (node instanceof ShapeNode sn) {
+            var el = ctx.getElement(sn);
+            if (el != null) {
+                System.out.println("test");
+                System.out.println(el.getAttribute("id"));
+            }
+        }
+
+        if (node instanceof CompositeGraphicsNode cgn) {
+            for (var child : cgn.getChildren()) {
+                printNode((GraphicsNode)child);
+            }
         }
     }
 
